@@ -59,17 +59,17 @@ def inference(image, model_name):
     
     neighs_info = knn.kneighbors([embedding],5)
     distances = neighs_info[0][0]
-    knn_nearest_5_classes = all_labels[neighs_info[1][0]]
+    knn_nearest_five_classes = all_labels[neighs_info[1][0]]
+
     nearest_labels = []
-    for target in knn_nearest_5_classes:
+    for target in knn_nearest_five_classes:
         nearest_labels.append(list(LABEL_ENCODER.keys())[list(LABEL_ENCODER.values()).index(target)])
-    
-    res_dict = dict()
+
+    sub = pd.DataFrame(columns=['Label','Cos Distance'])
     for target, dist in zip(nearest_labels, distances):
-        res_dict[target] = float(dist)   
-    sub = pd.DataFrame.from_dict(res_dict, orient='index', columns=['Id'])
-    sub = sub.reset_index()
-    sub.columns = ['Label', 'Cos Distance']
+        sub = sub.append({'Label':target, 'Cos Distance':round(dist,5)},ignore_index=True)
+    sub = sub.sort_values('Cos Distance')
+    sub = sub.drop_duplicates(['Label'], keep='first')
     return sub
 
 demo = gr.Interface(
