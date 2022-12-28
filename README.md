@@ -60,11 +60,35 @@
 6. Запускаем `submission.py` для получения submission.csv.
 7. Делаем сабмит на платформу: `kaggle competitions submit -c humpback-whale-identification -f experiments/proxy/ViT/knn_submission.csv -m "vit knn submission"`.
 
+## Experiments
+
+В качестве метрики качества на валидации использовалась метрика Recall: R@1, R@2, R@4, R@8, R@16, R@32.
+
+Со временем в пайплайн обучения было добавлено логгирование метрик в WandB. Ссылка: https://wandb.ai/cv-itmo/whale_classification?workspace=user-dmitryai
+
+Результаты основных экспериментов приведены в таблице ниже (было проведено еще несколько, но они не указаны в связи неуспешности).
+
+| **Модель** | **R@1** | **Leaderboard Score** |
+|----------------|:---------|:----------------|
+| resnet18_arcface | 0.104 | - |
+| resnet18_proxy | 0.105 | 0.20022 |
+| vit_proxy | 0.304 | **0.40347** |
+
+Результаты показывают, что на данный момент лучше всех себя продемонстрировал ViT в связке с ProxyAnchorLoss.
+
+## Web API
+
+Для реализации веб-сервиса был использован фреймворк `Gradio` ([ссылка на репозиторий](https://github.com/gradio-app/gradio)), который позволяет реализовывать веб-приложения для демо-решений и production систем.
+
+Веб-сервис позволяет опробовать две модели: `resnet18_proxy` и `vit_proxy`.
+
+Для запуска веб-сервиса необходимо скачать архив ([ссылка на гугл-диск](https://drive.google.com/file/d/1NBph6h8somnUr5nZk8jwLYotbYryhE2v/view?usp=share_link)) с необходимыми артефактами и моделями и распаковать его в папке `api/models/`. 
+
+Запуск производится из корня репозитория командой `python api/app.py`.
+
+Перед этим возможно потребуется исполнение команды `export PYTHONPATH="${PYTHONPATH}":pwd`.
 
 
-Со временем в пайплайн обучения было добавлено логгирование метрик в WandB. 
+## ToDo
 
 
-path = https://drive.google.com/file/d/1NBph6h8somnUr5nZk8jwLYotbYryhE2v/view?usp=share_link
-
-## Metrics
