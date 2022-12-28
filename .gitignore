@@ -5,6 +5,7 @@ __pycache__
 *.pth
 *.pkl
 *.npy
+*.zip
 
 models/*
 !models/.gitkeep

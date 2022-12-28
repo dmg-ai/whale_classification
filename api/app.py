@@ -16,22 +16,22 @@ logo_URL = "https://itmo.ru/file/pages/213/logo_osnovnoy_russkiy_chernyy.jpg"
 HEADLINE_IMAGE = "<center> <img src= {} width=200px></center>".format(logo_URL)
 HEADLINE = "Whale Classification \U0001F929 \U0001F433" # 
 RADIO_BTN_VERSIONS = ['resnet18 (🔺 speed, 🔻 robustness)','ViT (🔻 speed, 🔺 robustness)']
-INFERENCE_EXAMPLES = [['examples/new_whale.jpg','new_whale'],['examples/w_f48451c.jpg','w_f48451c']]
+INFERENCE_EXAMPLES = [['api/examples/new_whale.jpg','new_whale'],['api/examples/w_f48451c.jpg','w_f48451c']]
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-RESNET_MODEL = torch.load('models/resnet18/checkpoint_resnet18_proxy.pth', map_location=DEVICE)
-with open('models/resnet18/knn_resnet18.pkl', 'rb') as f:
+RESNET_MODEL = torch.load('api/models/resnet18/checkpoint_resnet18_proxy.pth', map_location=DEVICE)
+with open('api/models/resnet18/knn_resnet18.pkl', 'rb') as f:
     RESNET_KNN = pickle.load(f)
-RESNET_LABELS = np.load("models/resnet18/all_labels.npy")
+RESNET_LABELS = np.load("api/models/resnet18/all_labels.npy")
 
 
-VIT_MODEL = torch.load('models/vit/checkpoint_vit_proxy.pth', map_location=DEVICE)
-with open('models/vit/knn_vit.pkl', 'rb') as f:
+VIT_MODEL = torch.load('api/models/vit/checkpoint_vit_proxy.pth', map_location=DEVICE)
+with open('api/models/vit/knn_vit.pkl', 'rb') as f:
     VIT_KNN = pickle.load(f)
-VIT_LABELS = np.load("models/vit/all_labels.npy")
+VIT_LABELS = np.load("api/models/vit/all_labels.npy")
 
-with open(os.path.join('models/label_encoder.pkl'), 'rb') as f:
+with open(os.path.join('api/models/label_encoder.pkl'), 'rb') as f:
     LABEL_ENCODER = pickle.load(f)
 
 
