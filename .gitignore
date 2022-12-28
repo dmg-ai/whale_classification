@@ -6,6 +6,7 @@ __pycache__
 *.pkl
 *.npy
 *.zip
+*.ipynb
 
 models/*
 !models/.gitkeep
